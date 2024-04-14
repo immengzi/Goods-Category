@@ -1,8 +1,7 @@
-import {useData} from "../dataProvider";
-import {DataProvider} from "../dataProvider";
+import {DataProvider, useData} from "../dataProvider";
 
-export default function Content({selected, subSelected}) {
-    const { data } = useData();
+const Content = ({selected, subSelected}) => {
+    const {data} = useData();
     const items = data.categories[selected].sub[subSelected].items;
 
     return (
@@ -10,11 +9,11 @@ export default function Content({selected, subSelected}) {
             <div>
                 <div className="tab-content">
                     {
-                        items?.map((item)=>{
+                        items?.map((item) => {
                             return (
                                 <div className="card" key={item.tag}>
                                     <img src={item.img}
-                                            className="card-img-top" alt={item.name}/>
+                                         className="card-img-top" alt={item.name}/>
                                     <div className="card-body">
                                         <h5 className="card-title">{item.name}</h5>
                                     </div>
@@ -27,3 +26,5 @@ export default function Content({selected, subSelected}) {
         </DataProvider>
     )
 }
+
+export default Content;

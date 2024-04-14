@@ -11,11 +11,11 @@ export default function Page() {
             <div className={"container"}>
                 <div className={"row"}>
                     <div className={"col-3"}>
-                        <Category selected = {selected} setSelected={setSelected}/>
+                        <Category selected={selected} setSelected={setSelected}/>
                     </div>
                     <div className={"col-9"}>
-                        <Subcategory selected = {selected} subSelected={subSelected} setSubSelected={setSubSelected}/>
-                        <Content selected = {selected} subSelected={subSelected}/>
+                        <Subcategory selected={selected} subSelected={subSelected} setSubSelected={setSubSelected}/>
+                        <Content selected={selected} subSelected={subSelected}/>
                     </div>
                 </div>
             </div>

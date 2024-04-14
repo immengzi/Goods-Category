@@ -1,7 +1,7 @@
 import {useData} from "../dataProvider";
 
-export default function Subcategory({ selected, subSelected, setSubSelected }) {
-    const { data } = useData();
+const Subcategory = ({selected, subSelected, setSubSelected}) => {
+    const {data} = useData();
     const subCategories = data.categories[selected].sub;
 
     return (
@@ -24,3 +24,5 @@ export default function Subcategory({ selected, subSelected, setSubSelected }) {
         </div>
     )
 }
+
+export default Subcategory;
