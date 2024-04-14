@@ -1,22 +1,26 @@
-import {data} from "../data";
+import {useData} from "../dataProvider";
 
-export default function Subcategory({selected, setSelected}) {
-    const categories = Array.from(data.categories);
+export default function Subcategory({ selected, subSelected, setSubSelected }) {
+    const { data } = useData();
+    const subCategories = data.categories[selected].sub;
+
     return (
         <div>
-            <div className="tab-content">
+            <ul className="nav nav-tabs" id="myTab" role="tablist">
                 {
-                    categories.map((category, index)=>{
-                        let active = selected === index ? " show active" : "";
+                    subCategories.map((sub, index) => {
+                        let active = subSelected === index ? " active" : "";
                         return (
-                            <div className={"tab-pane fade"+ active} role={"tabpanel"} tabIndex="0"
-                                 key={index}>
-                                { category.name }
-                            </div>
+                            <li className="nav-item" role="presentation" key={index}>
+                                <button className={"nav-link" + active} type={"button"} role={"tab"}
+                                        onClick={() => setSubSelected(index)}>
+                                    {sub.name}
+                                </button>
+                            </li>
                         )
                     })
                 }
-            </div>
+            </ul>
         </div>
     )
 }

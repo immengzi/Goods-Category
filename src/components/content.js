@@ -1,22 +1,29 @@
-import {data} from "../data";
+import {useData} from "../dataProvider";
+import {DataProvider} from "../dataProvider";
 
-export default function Content({selected, setSelected}) {
-    const categories = Array.from(data.categories);
+export default function Content({selected, subSelected}) {
+    const { data } = useData();
+    const items = data.categories[selected].sub[subSelected].items;
+
     return (
-        <div>
-            <div className="tab-content">
-                {
-                    categories.map((category, index)=>{
-                        let active = selected === index ? " show active" : "";
-                        return (
-                            <div className={"tab-pane fade"+ active} role={"tabpanel"} tabIndex="0"
-                                 key={index}>
-                                { category.name }
-                            </div>
-                        )
-                    })
-                }
+        <DataProvider>
+            <div>
+                <div className="tab-content">
+                    {
+                        items?.map((item)=>{
+                            return (
+                                <div className="card" key={item.tag}>
+                                    <img src={item.img}
+                                            className="card-img-top" alt={item.name}/>
+                                    <div className="card-body">
+                                        <h5 className="card-title">{item.name}</h5>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
-        </div>
+        </DataProvider>
     )
 }

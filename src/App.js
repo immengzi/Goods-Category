@@ -1,10 +1,10 @@
-import Category from "./components/category";
-import Content from "./components/content";
-import {data} from "./data";
 import Page from "./components/page";
+import {DataProvider} from "./dataProvider";
 function App() {
     return (
-        <Page />
+        <DataProvider>
+            <Page />
+        </DataProvider>
     );
 }
 

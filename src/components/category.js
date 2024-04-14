@@ -1,9 +1,9 @@
-import {data} from "../data";
-import {useState} from "react";
+import {useData} from "../dataProvider";
 
-export default function Category({selected, setSelected}) {
-    const categories = Array.from(data.categories);
-    // const [selected, setSelected] = useState(0);
+const Category = ({ selected, setSelected }) => {
+    const { data } = useData();
+    const categories = data.categories;
+
     return (
         <div>
             <div className="d-flex align-items-start">
@@ -14,7 +14,7 @@ export default function Category({selected, setSelected}) {
                             return (
                                 <button className={"nav-link"+ active} type={"button"} role={"tab"}
                                         onClick={() => setSelected(index)} key={index}>
-                                    { category.name }
+                                    {category.name}
                                 </button>
                             )
                         })
@@ -25,3 +25,5 @@ export default function Category({selected, setSelected}) {
         </div>
     )
 }
+
+export default Category;
