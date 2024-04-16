@@ -20,6 +20,11 @@ const Card = styled.div`
 
 const Content = ({selected, subSelected}) => {
     const {data} = useData();
+
+    if (!data || !data.categories) {
+        return <div>Loading...</div>;
+    }
+
     const items = data.categories[selected].sub[subSelected].items;
 
     return (

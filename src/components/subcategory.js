@@ -1,5 +1,4 @@
 import {useData} from "../dataProvider";
-import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 
 const SubNav = styled.ul`
@@ -34,6 +33,11 @@ const Button = styled.button`
 
 const Subcategory = ({selected, subSelected, setSubSelected}) => {
     const {data} = useData();
+
+    if (!data || !data.categories) {
+        return <div>Loading...</div>;
+    }
+
     const subCategories = data.categories[selected].sub;
 
     return (
