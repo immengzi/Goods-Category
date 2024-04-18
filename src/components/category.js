@@ -6,6 +6,7 @@ const ButtonContainer = styled.div`
     justify-content: center;
     width: 100%;
     max-width: 20vw;
+
     &:focus-within {
         background-color: #ffffff;
     }
@@ -19,12 +20,13 @@ const Button = styled.button`
     color: black;
     border: none;
     background-color: transparent;
+
     &.active {
         font-weight: bold;
         color: #f75602;
         outline: none;
         position: relative;
-        
+
         &::before {
             content: '';
             position: absolute;

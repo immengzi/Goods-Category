@@ -24,6 +24,7 @@ const Button = styled.button`
     font-size: 12px;
     background-color: #f6f6f6;
     border-radius: 25px;
+
     &.active {
         font-weight: bold;
         color: #f75602;
@@ -35,10 +36,17 @@ const Subcategory = ({selected, subSelected, setSubSelected}) => {
     const {data} = useData();
 
     if (!data || !data.categories) {
-        return <div>Loading...</div>;
+        return <></>;
     }
 
     const subCategories = data.categories[selected].sub;
+
+    const handleScroll = (index) => {
+        const element = document.getElementById(`sub-${index}`);
+        if (element) {
+            element.scrollIntoView({behavior: 'smooth'});
+        }
+    };
 
     return (
         <SubNav className="nav" role="tablist">
@@ -48,7 +56,12 @@ const Subcategory = ({selected, subSelected, setSubSelected}) => {
                     return (
                         <ButtonContainer className="nav-item mx-1 my-auto" role="presentation" key={index}>
                             <Button className={"nav-link" + active} type={"button"} role={"tab"}
-                                    onClick={() => setSubSelected(index)}>
+                                    onClick={() => {
+                                        setSubSelected(index);
+                                        handleScroll(index);
+                                    }}
+                                    href={`#sub-${index}`}
+                            >
                                 {sub.name}
                             </Button>
                         </ButtonContainer>
