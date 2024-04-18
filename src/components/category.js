@@ -5,6 +5,7 @@ const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
+    max-width: 20vw;
     &:focus-within {
         background-color: #ffffff;
     }
