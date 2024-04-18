@@ -47,24 +47,22 @@ const Category = ({selected, setSelected}) => {
     const categories = data?.categories;
 
     return (
-        <div>
-            <div className="d-flex align-items-start">
-                <div className="nav" role="tablist">
-                    {
-                        categories.map((category, index) => {
-                            let active = selected === index ? " active" : "";
-                            return (
-                                <ButtonContainer className={"my-0 py-2"} key={index}>
-                                    <Button className={"nav-link" + active} type={"button"} role={"tab"}
-                                            onClick={() => setSelected(index)}>
-                                        {category.name}
-                                    </Button>
-                                </ButtonContainer>
+        <div className="d-flex align-items-start">
+            <div className="nav" role="tablist">
+                {
+                    categories.map((category, index) => {
+                        let active = selected === index ? " active" : "";
+                        return (
+                            <ButtonContainer className={"my-0 py-2"} key={index}>
+                                <Button className={"nav-link" + active} type={"button"} role={"tab"}
+                                        onClick={() => setSelected(index)}>
+                                    {category.name}
+                                </Button>
+                            </ButtonContainer>
 
-                            )
-                        })
-                    }
-                </div>
+                        )
+                    })
+                }
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import {DataProvider, useData} from "../dataProvider";
+import {useData} from "../dataProvider";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 
@@ -28,18 +28,16 @@ const Content = ({selected, subSelected}) => {
     const items = data.categories[selected].sub[subSelected].items;
 
     return (
-        <DataProvider>
-            <CardsContainer>
-                {items?.map((item) => (
-                    <Card className="card" key={item.tag}>
-                        <img src={item.img} className="card-img-top" alt={item.name} />
-                        <div className="card-body">
-                            <h5 className="card-title">{item.name}</h5>
-                        </div>
-                    </Card>
-                ))}
-            </CardsContainer>
-        </DataProvider>
+        <CardsContainer>
+            {items?.map((item) => (
+                <Card className="card" key={item.tag}>
+                    <img src={item.img} className="card-img-top" alt={item.name} />
+                    <div className="card-body">
+                        <h5 className="card-title">{item.name}</h5>
+                    </div>
+                </Card>
+            ))}
+        </CardsContainer>
     )
 }
 

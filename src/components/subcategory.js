@@ -41,23 +41,21 @@ const Subcategory = ({selected, subSelected, setSubSelected}) => {
     const subCategories = data.categories[selected].sub;
 
     return (
-        <div>
-            <SubNav className="nav" role="tablist">
-                {
-                    subCategories.map((sub, index) => {
-                        let active = subSelected === index ? " active" : "";
-                        return (
-                            <ButtonContainer className="nav-item mx-1 my-auto" role="presentation" key={index}>
-                                <Button className={"nav-link" + active} type={"button"} role={"tab"}
-                                        onClick={() => setSubSelected(index)}>
-                                    {sub.name}
-                                </Button>
-                            </ButtonContainer>
-                        )
-                    })
-                }
-            </SubNav>
-        </div>
+        <SubNav className="nav" role="tablist">
+            {
+                subCategories.map((sub, index) => {
+                    let active = subSelected === index ? " active" : "";
+                    return (
+                        <ButtonContainer className="nav-item mx-1 my-auto" role="presentation" key={index}>
+                            <Button className={"nav-link" + active} type={"button"} role={"tab"}
+                                    onClick={() => setSubSelected(index)}>
+                                {sub.name}
+                            </Button>
+                        </ButtonContainer>
+                    )
+                })
+            }
+        </SubNav>
     )
 }
 

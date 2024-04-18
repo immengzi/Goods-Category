@@ -1,4 +1,4 @@
-import {DataProvider, useData} from "../dataProvider";
+import {useData} from "../dataProvider";
 import Category from "./category";
 import Subcategory from "./subcategory";
 import Content from "./content";
@@ -24,16 +24,14 @@ export default function Page() {
     const {selected, setSelected, subSelected, setSubSelected} = useData();
 
     return (
-        <DataProvider>
-            <View>
-                <SideBar>
-                    <Category selected={selected} setSelected={setSelected}/>
-                </SideBar>
-                <MainPage>
-                    <Subcategory selected={selected} subSelected={subSelected} setSubSelected={setSubSelected}/>
-                    <Content selected={selected} subSelected={subSelected}/>
-                </MainPage>
-            </View>
-        </DataProvider>
+        <View>
+            <SideBar>
+                <Category selected={selected} setSelected={setSelected}/>
+            </SideBar>
+            <MainPage>
+                <Subcategory selected={selected} subSelected={subSelected} setSubSelected={setSubSelected}/>
+                <Content selected={selected} subSelected={subSelected}/>
+            </MainPage>
+        </View>
     )
 }
