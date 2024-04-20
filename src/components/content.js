@@ -45,7 +45,7 @@ const Content = ({selected}) => {
                     <CardsContainer>
                         {sub.items?.map((item) => (
                             <Card className="card" key={item.tag}>
-                                <CardImg src={item.img} alt={item.name}/>
+                                <CardImg src={item.img} alt={item.name} loading={"lazy"}/>
                                 <CardText>{item.name}</CardText>
                             </Card>
                         ))}

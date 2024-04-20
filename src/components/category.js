@@ -1,4 +1,5 @@
 import {useData} from "../dataProvider";
+import {useEffect, useRef} from "react";
 import styled from "styled-components";
 
 const ButtonContainer = styled.div`
@@ -21,6 +22,10 @@ const Button = styled.button`
     border: none;
     background-color: transparent;
 
+    &:hover {
+        color: #f75602;
+    }
+    
     &.active {
         font-weight: bold;
         color: #f75602;
@@ -42,6 +47,19 @@ const Button = styled.button`
 
 const Category = ({selected, setSelected}) => {
     const {data} = useData();
+    const refContainer = useRef(null);
+
+    useEffect(() => {
+        if (selected !== null && refContainer.current) {
+            const activeButton = refContainer.current.querySelector('.active');
+            if (activeButton) {
+                const rect = activeButton.getBoundingClientRect();
+                if (rect.bottom > window.innerHeight) {
+                    activeButton.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest"});
+                }
+            }
+        }
+    }, [selected]);
 
     if (!data || !data.categories) {
         return <div>Loading...</div>;
@@ -50,7 +68,7 @@ const Category = ({selected, setSelected}) => {
     const categories = data?.categories;
 
     return (
-        <div className="d-flex align-items-start">
+        <div ref={refContainer} className="d-flex align-items-start">
             <div className="nav" role="tablist">
                 {
                     categories.map((category, index) => {

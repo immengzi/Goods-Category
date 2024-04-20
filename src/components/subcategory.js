@@ -1,5 +1,6 @@
 import {useData} from "../dataProvider";
 import styled from "styled-components";
+import {useEffect, useRef} from "react";
 
 const SubNav = styled.ul`
     width: 100%;
@@ -9,6 +10,10 @@ const SubNav = styled.ul`
     white-space: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
 `;
 
 const ButtonContainer = styled.li`
@@ -24,7 +29,11 @@ const Button = styled.button`
     font-size: 12px;
     background-color: #f6f6f6;
     border-radius: 25px;
-
+    
+    &:hover {
+        color: #f75602;
+    }
+    
     &.active {
         font-weight: bold;
         color: #f75602;
@@ -34,6 +43,19 @@ const Button = styled.button`
 
 const Subcategory = ({selected, subSelected, setSubSelected}) => {
     const {data} = useData();
+    const refContainer = useRef(null);
+
+    useEffect(() => {
+        if (subSelected !== null && refContainer.current) {
+            const activeButton = refContainer.current.querySelector('.active');
+            if (activeButton) {
+                const rect = activeButton.getBoundingClientRect();
+                if (rect.right > window.innerWidth) {
+                    activeButton.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+                }
+            }
+        }
+    }, [subSelected]);
 
     if (!data || !data.categories) {
         return <></>;
@@ -49,7 +71,7 @@ const Subcategory = ({selected, subSelected, setSubSelected}) => {
     };
 
     return (
-        <SubNav className="nav" role="tablist">
+        <SubNav ref={refContainer} className="nav" role="tablist">
             {
                 subCategories.map((sub, index) => {
                     let active = subSelected === index ? " active" : "";
