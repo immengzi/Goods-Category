@@ -1,4 +1,3 @@
-import {useData} from "../dataProvider";
 import Category from "./category";
 import Subcategory from "./subcategory";
 import Content from "./content";

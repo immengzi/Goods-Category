@@ -30,17 +30,41 @@ const CardText = styled.div`
 `;
 
 const Content = () => {
-    const {data} = useData();
-    const {selected, subSelected, setSubSelected, isValid} = useData();
-
-    if (!isValid) {
-        return null;
-    }
-
+    const { data } = useData();
+    const { selected, subSelected, setSubSelected } = useData();
     const subCategories = data.categories[selected].sub;
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            console.log("Scrolling...");
+            const positions = data.categories[selected].sub.map((sub, index) => {
+                const element = document.getElementById(`sub-${index}`);
+                return {
+                    top: element.offsetTop,
+                    bottom: element.offsetTop + element.offsetHeight,
+                    index
+                };
+            });
+
+            const scrollPosition = containerRef.current.scrollTop + containerRef.current.offsetTop;
+            const currentSub = positions.find(p => p.top <= scrollPosition && p.bottom >= scrollPosition);
+            if (currentSub && currentSub.index !== subSelected) {
+                console.log("Updating subSelected to", currentSub.index);
+                setSubSelected(currentSub.index);
+            }
+        };
+
+        const container = containerRef.current;
+        container.addEventListener('scroll', handleScroll);
+
+        return () => {
+            container.removeEventListener('scroll', handleScroll);
+        };
+    }, [data, selected, subSelected, setSubSelected]);
 
     return (
-        <ContentContainer>
+        <ContentContainer ref={containerRef}>
             {subCategories.map((sub, index) => (
                 <div id={`sub-${index}`} key={index}>
                     <h5>{sub.name}</h5>

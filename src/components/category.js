@@ -47,13 +47,11 @@ const Button = styled.button`
 
 const Category = () => {
     const {data} = useData();
-    const {isValid, selected, setSelected, setSubSelected} = useData();
+    const categories = data.categories;
+    const {selected, setSelected, setSubSelected} = useData();
     const refContainer = useRef(null);
 
     useEffect(() => {
-        if (!isValid || selected === null || !refContainer.current) {
-            return;
-        }
         const activeButton = refContainer.current.querySelector('.active');
         if (activeButton) {
             const rect = activeButton.getBoundingClientRect();
@@ -61,13 +59,7 @@ const Category = () => {
                 activeButton.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest"});
             }
         }
-    }, [selected, isValid]);
-
-    if (!isValid) {
-        return null;
-    }
-
-    const categories = data.categories;
+    }, [selected]);
 
     return (
         <div ref={refContainer} className="d-flex align-items-start">
@@ -85,7 +77,6 @@ const Category = () => {
                                     {category.name}
                                 </Button>
                             </ButtonContainer>
-
                         )
                     })
                 }

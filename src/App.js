@@ -1,12 +1,21 @@
 import Page from "./components/page";
-import {DataProvider} from "./dataProvider";
+import { DataProvider, useData } from "./dataProvider";
 
 function App() {
     return (
         <DataProvider>
-            <Page/>
+            <ConditionalPage />
         </DataProvider>
     );
+}
+
+function ConditionalPage() {
+    const { isValid } = useData();
+    if (isValid) {
+        return <Page />;
+    } else {
+        return <div>Loading or not available...</div>;
+    }
 }
 
 export default App;
