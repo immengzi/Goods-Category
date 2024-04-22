@@ -45,8 +45,9 @@ const Button = styled.button`
     }
 `;
 
-const Category = ({isValid, selected, setSelected}) => {
+const Category = () => {
     const {data} = useData();
+    const {isValid, selected, setSelected, setSubSelected} = useData();
     const refContainer = useRef(null);
 
     useEffect(() => {
@@ -77,7 +78,10 @@ const Category = ({isValid, selected, setSelected}) => {
                         return (
                             <ButtonContainer className={"my-0 py-2"} key={index}>
                                 <Button className={"nav-link" + active} type={"button"} role={"tab"}
-                                        onClick={() => setSelected(index)}>
+                                        onClick={() => {
+                                            setSelected(index)
+                                            setSubSelected(0)
+                                        }}>
                                     {category.name}
                                 </Button>
                             </ButtonContainer>

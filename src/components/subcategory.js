@@ -41,8 +41,9 @@ const Button = styled.button`
     }
 `;
 
-const Subcategory = ({isValid, selected, subSelected, setSubSelected}) => {
+const Subcategory = () => {
     const {data} = useData();
+    const {isValid, selected, subSelected, setSubSelected} = useData();
     const refContainer = useRef(null);
 
     useEffect(() => {

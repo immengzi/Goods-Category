@@ -1,7 +1,7 @@
 import {useData} from "../dataProvider";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 
 const ContentContainer = styled.div`
     padding: 1rem;
@@ -29,8 +29,9 @@ const CardText = styled.div`
     font-size: 12px;
 `;
 
-const Content = ({isValid, selected}) => {
+const Content = () => {
     const {data} = useData();
+    const {selected, subSelected, setSubSelected, isValid} = useData();
 
     if (!isValid) {
         return null;
