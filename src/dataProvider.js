@@ -18,6 +18,7 @@ export const DataProvider = ({ children }) => {
     const [selected, setSelected] = useState(0);
     const [subSelected, setSubSelected] = useState(0);
     const [isValid, setIsValid] = useState(false);
+    const [userInitiated, setUserInitiated] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,7 +35,9 @@ export const DataProvider = ({ children }) => {
         setSelected,
         subSelected,
         setSubSelected,
-        isValid
+        isValid,
+        userInitiated,
+        setUserInitiated
     };
 
     return (

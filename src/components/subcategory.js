@@ -43,7 +43,7 @@ const Button = styled.button`
 
 const Subcategory = () => {
     const {data} = useData();
-    const {selected, subSelected, setSubSelected} = useData();
+    const {selected, subSelected, setSubSelected, setUserInitiated} = useData();
     const subCategories = data.categories[selected].sub;
     const refContainer = useRef(null);
 
@@ -52,12 +52,12 @@ const Subcategory = () => {
         if (activeButton) {
             const rect = activeButton.getBoundingClientRect();
             if (rect.right > window.innerWidth) {
-                activeButton.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+                activeButton.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
             }
         }
     }, [subSelected]);
-
     const handleScroll = (index) => {
+        setUserInitiated(true);
         const element = document.getElementById(`sub-${index}`);
         if (element) {
             element.scrollIntoView({behavior: 'smooth'});

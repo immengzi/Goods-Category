@@ -56,7 +56,7 @@ const Category = () => {
         if (activeButton) {
             const rect = activeButton.getBoundingClientRect();
             if (rect.bottom > window.innerHeight) {
-                activeButton.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest"});
+                activeButton.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest"});
             }
         }
     }, [selected]);

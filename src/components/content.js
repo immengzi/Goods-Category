@@ -1,7 +1,7 @@
 import {useData} from "../dataProvider";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
-import {useEffect, useRef} from "react";
+import {createRef, useEffect, useRef} from "react";
 
 const ContentContainer = styled.div`
     padding: 1rem;
@@ -30,43 +30,54 @@ const CardText = styled.div`
 `;
 
 const Content = () => {
-    const { data } = useData();
-    const { selected, subSelected, setSubSelected } = useData();
+    const {data, selected, subSelected, setSubSelected, userInitiated, setUserInitiated} = useData();
     const subCategories = data.categories[selected].sub;
-    const containerRef = useRef(null);
+    const subRefs = useRef(subCategories.map(() => createRef()));
 
-    useEffect(() => {
-        const handleScroll = () => {
-            console.log("Scrolling...");
-            const positions = data.categories[selected].sub.map((sub, index) => {
-                const element = document.getElementById(`sub-${index}`);
-                return {
-                    top: element.offsetTop,
-                    bottom: element.offsetTop + element.offsetHeight,
-                    index
-                };
+/*    useEffect(() => {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = subRefs.current.findIndex(ref => ref.current === entry.target);
+                    if (!userInitiated) {
+                        setSubSelected(index);
+                    }
+                    setUserInitiated(false);
+                }
             });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        });
 
-            const scrollPosition = containerRef.current.scrollTop + containerRef.current.offsetTop;
-            const currentSub = positions.find(p => p.top <= scrollPosition && p.bottom >= scrollPosition);
-            if (currentSub && currentSub.index !== subSelected) {
-                console.log("Updating subSelected to", currentSub.index);
-                setSubSelected(currentSub.index);
+        subRefs.current.forEach(ref => {
+            if (ref.current) {
+                observer.observe(ref.current);
             }
-        };
-
-        const container = containerRef.current;
-        container.addEventListener('scroll', handleScroll);
+        });
 
         return () => {
-            container.removeEventListener('scroll', handleScroll);
+            subRefs.current.forEach(ref => {
+                if (ref.current) {
+                    observer.unobserve(ref.current);
+                }
+            });
+            observer.disconnect();
         };
-    }, [data, selected, subSelected, setSubSelected]);
+    }, [selected, setUserInitiated]);*/
+
+    useEffect(() => {
+        const subCategoryElement = document.getElementById(`sub-${subSelected}`);
+        if (subCategoryElement) {
+            subCategoryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [selected, subSelected]);
 
     return (
-        <ContentContainer ref={containerRef}>
+        <ContentContainer>
             {subCategories.map((sub, index) => (
-                <div id={`sub-${index}`} key={index}>
+                <div ref={subRefs.current[index]} key={index} id={`sub-${index}`}>
                     <h5>{sub.name}</h5>
                     <CardsContainer>
                         {sub.items?.map((item) => (
@@ -80,6 +91,5 @@ const Content = () => {
             ))}
         </ContentContainer>
     );
-};
-
+}
 export default Content;
