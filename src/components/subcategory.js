@@ -41,24 +41,25 @@ const Button = styled.button`
     }
 `;
 
-const Subcategory = ({selected, subSelected, setSubSelected}) => {
+const Subcategory = ({isValid, selected, subSelected, setSubSelected}) => {
     const {data} = useData();
     const refContainer = useRef(null);
 
     useEffect(() => {
-        if (subSelected !== null && refContainer.current) {
-            const activeButton = refContainer.current.querySelector('.active');
-            if (activeButton) {
-                const rect = activeButton.getBoundingClientRect();
-                if (rect.right > window.innerWidth) {
-                    activeButton.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-                }
+        if (!isValid || subSelected === null || !refContainer.current) {
+            return;
+        }
+        const activeButton = refContainer.current.querySelector('.active');
+        if (activeButton) {
+            const rect = activeButton.getBoundingClientRect();
+            if (rect.right > window.innerWidth) {
+                activeButton.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
             }
         }
-    }, [subSelected]);
+    }, [subSelected, isValid]);
 
-    if (!data || !data.categories) {
-        return <></>;
+    if (!isValid) {
+        return null;
     }
 
     const subCategories = data.categories[selected].sub;

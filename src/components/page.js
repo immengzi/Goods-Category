@@ -24,16 +24,21 @@ const MainPage = styled.div`
 `;
 
 export default function Page() {
-    const {selected, setSelected, subSelected, setSubSelected} = useData();
+    const {selected, setSelected, subSelected, setSubSelected, isValid} = useData();
 
     return (
         <View>
             <SideBar>
-                <Category selected={selected} setSelected={setSelected}/>
+                <Category isValid={isValid}
+                          selected={selected} setSelected={setSelected}/>
             </SideBar>
             <MainPage>
-                <Subcategory selected={selected} subSelected={subSelected} setSubSelected={setSubSelected}/>
-                <Content selected={selected} subSelected={subSelected}/>
+                <Subcategory isValid={isValid}
+                             selected={selected} subSelected={subSelected}
+                             setSubSelected={setSubSelected}/>
+                <Content isValid={isValid}
+                         selected={selected}
+                         subSelected={subSelected}/>
             </MainPage>
         </View>
     )

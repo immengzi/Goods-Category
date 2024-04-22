@@ -45,27 +45,28 @@ const Button = styled.button`
     }
 `;
 
-const Category = ({selected, setSelected}) => {
+const Category = ({isValid, selected, setSelected}) => {
     const {data} = useData();
     const refContainer = useRef(null);
 
     useEffect(() => {
-        if (selected !== null && refContainer.current) {
-            const activeButton = refContainer.current.querySelector('.active');
-            if (activeButton) {
-                const rect = activeButton.getBoundingClientRect();
-                if (rect.bottom > window.innerHeight) {
-                    activeButton.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest"});
-                }
+        if (!isValid || selected === null || !refContainer.current) {
+            return;
+        }
+        const activeButton = refContainer.current.querySelector('.active');
+        if (activeButton) {
+            const rect = activeButton.getBoundingClientRect();
+            if (rect.bottom > window.innerHeight) {
+                activeButton.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest"});
             }
         }
-    }, [selected]);
+    }, [selected, isValid]);
 
-    if (!data || !data.categories) {
-        return <div>Loading...</div>;
+    if (!isValid) {
+        return null;
     }
 
-    const categories = data?.categories;
+    const categories = data.categories;
 
     return (
         <div ref={refContainer} className="d-flex align-items-start">

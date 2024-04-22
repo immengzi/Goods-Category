@@ -1,6 +1,7 @@
 import {useData} from "../dataProvider";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
+import {useEffect} from "react";
 
 const ContentContainer = styled.div`
     padding: 1rem;
@@ -28,11 +29,11 @@ const CardText = styled.div`
     font-size: 12px;
 `;
 
-const Content = ({selected}) => {
+const Content = ({isValid, selected}) => {
     const {data} = useData();
 
-    if (!data || !data.categories) {
-        return <></>;
+    if (!isValid) {
+        return null;
     }
 
     const subCategories = data.categories[selected].sub;

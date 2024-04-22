@@ -17,11 +17,13 @@ export const DataProvider = ({ children }) => {
     const [data, setData] = useState(null);
     const [selected, setSelected] = useState(0);
     const [subSelected, setSubSelected] = useState(0);
+    const [isValid, setIsValid] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             const initialData = await getData("/api/goods.json");
             setData(initialData);
+            setIsValid(true);
         };
         fetchData();
     }, []);
@@ -32,6 +34,7 @@ export const DataProvider = ({ children }) => {
         setSelected,
         subSelected,
         setSubSelected,
+        isValid
     };
 
     return (
