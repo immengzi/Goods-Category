@@ -31,8 +31,8 @@ const CardText = styled.div`
 
 const Content = () => {
     const {data, selected, subSelected, setSubSelected, userInitiated, setUserInitiated} = useData();
-    const subCategories = data?.categories[selected].sub;
-    const subRefs = useRef(subCategories.map(() => createRef()));
+    const subCategories = data?.categories?.[selected]?.sub;
+    const subRefs = useRef(subCategories?.map(() => createRef()));
 
 /*    useEffect(() => {
         const observer = new IntersectionObserver(entries => {

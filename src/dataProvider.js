@@ -22,7 +22,7 @@ export const DataProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const initialData = await getData("/api/goods.json");
+            const initialData = await getData("/goods/goods.json");
             setData(initialData);
             setIsValid(true);
         };

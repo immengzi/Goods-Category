@@ -44,7 +44,7 @@ const Button = styled.button`
 const Subcategory = () => {
     const {data} = useData();
     const {selected, subSelected, setSubSelected, setUserInitiated} = useData();
-    const subCategories = data.categories[selected].sub;
+    const subCategories = data?.categories?.[selected]?.sub;
     const refContainer = useRef(null);
 
     useEffect(() => {
