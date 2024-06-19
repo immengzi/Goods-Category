@@ -4,7 +4,7 @@ module.exports = function(app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'https://file-1309028215.cos.ap-nanjing.myqcloud.com',
+            target: 'https://file.mengzi.li',
             changeOrigin: true,
         })
     );

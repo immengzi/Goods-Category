@@ -67,7 +67,7 @@ const Subcategory = () => {
     return (
         <SubNav ref={refContainer} className="nav" role="tablist">
             {
-                subCategories.map((sub, index) => {
+                subCategories?.map((sub, index) => {
                     let active = subSelected === index ? " active" : "";
                     return (
                         <ButtonContainer className="nav-item mx-1 my-auto" role="presentation" key={index}>

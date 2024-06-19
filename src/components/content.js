@@ -31,7 +31,7 @@ const CardText = styled.div`
 
 const Content = () => {
     const {data, selected, subSelected, setSubSelected, userInitiated, setUserInitiated} = useData();
-    const subCategories = data.categories[selected].sub;
+    const subCategories = data?.categories[selected].sub;
     const subRefs = useRef(subCategories.map(() => createRef()));
 
 /*    useEffect(() => {
@@ -76,7 +76,7 @@ const Content = () => {
 
     return (
         <ContentContainer>
-            {subCategories.map((sub, index) => (
+            {subCategories?.map((sub, index) => (
                 <div ref={subRefs.current[index]} key={index} id={`sub-${index}`}>
                     <h5>{sub.name}</h5>
                     <CardsContainer>
